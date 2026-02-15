@@ -34,3 +34,4 @@ def simulate_geometric(p, trials):
         results.append(count)
 
     return results
+# will optimize this later using numpy's vectorized operations, but for now, this is straightforward.

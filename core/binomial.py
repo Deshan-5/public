@@ -21,3 +21,4 @@ def count_successes_per_session(bernoulli_matrix: np.ndarray) -> np.ndarray:
 
 def simulate_binomial(n, p, simulations):
     return np.random.binomial(n, p, simulations)
+    # will optimize this later using numpy's vectorized operations, but for now, this is straightforward.

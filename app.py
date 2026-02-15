@@ -65,10 +65,10 @@ def rare_event_visualization():
 def rare_event_with_theory(p=0.01, trials=5000):
     geo_data = simulate_geometric(p, trials)
 
-    # Histogram (normalized)
+    # Histogram--(normalized)
     plt.hist(geo_data, bins=100, density=True, alpha=0.6)
 
-    # Theoretical curve
+    # Theoretical curve.
     k_values = np.arange(1, max(geo_data))
     pmf_values = [geometric_pmf(k, p) for k in k_values]
 

@@ -24,9 +24,7 @@ def geometric_variance(p):
     return (1 - p) / (p**2)
 
 def poisson_pmf(k, lam):
-    """
-    Computes the Poisson probability mass function.
-    
+    """Computes the Poisson pmf.
     P(X = k) = (e^(-λ) * λ^k) / k!
     """
     return (math.exp(-lam) * lam**k) / math.factorial(k)
