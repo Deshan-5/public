@@ -54,3 +54,7 @@ Python 3.13
 Streamlit
 NumPy
 Matplotlib
+
+License
+
+MIT License. Feel free to explore, learn, and play with it!
