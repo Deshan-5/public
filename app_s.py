@@ -1964,420 +1964,349 @@ render();
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@300;400;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:transparent;overflow:hidden;}
-
 @keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 @keyframes shimmer{0%{background-position:-300% center}100%{background-position:300% center}}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes floatY2{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes progressBar{from{width:0}to{width:var(--w,100%)}}
-@keyframes pulseGlow{0%,100%{opacity:0.6}50%{opacity:1}}
-@keyframes scanLine{0%{top:-2px;opacity:0}10%{opacity:1}90%{opacity:0.6}100%{top:100%;opacity:0}}
-@keyframes borderFlow{0%,100%{opacity:0.4}50%{opacity:0.9}}
-@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes glitch{0%,100%{clip-path:none}92%{clip-path:none}93%{clip-path:inset(20% 0 60% 0);transform:translateX(-3px)}94%{clip-path:inset(50% 0 30% 0);transform:translateX(3px)}95%{clip-path:none;transform:translateX(0)}}
-@keyframes orbPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(0,245,255,0.4)}50%{transform:scale(1.08);box-shadow:0 0 0 8px rgba(0,245,255,0)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes floatY2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pb{from{width:0}to{width:var(--w,100%)}}
+@keyframes orbPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,157,0.5)}50%{box-shadow:0 0 0 6px rgba(0,255,157,0)}}
 @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glitch{0%,89%,100%{clip-path:none;transform:none}90%{clip-path:inset(20% 0 60% 0);transform:translateX(-3px)}92%{clip-path:inset(50% 0 20% 0);transform:translateX(3px)}94%{clip-path:none;transform:none}}
+@keyframes scan{0%{top:-2px;opacity:0}8%{opacity:0.7}92%{opacity:0.4}100%{top:100%;opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
+html,body{height:auto;min-height:100%;}
 .fw{
-  font-family:'Space Grotesk',sans-serif;
+  font-family:"Space Grotesk",sans-serif;
+  background:linear-gradient(180deg,rgba(2,5,14,1) 0%,rgba(0,0,0,1) 100%);
   position:relative;overflow:hidden;
-  background:linear-gradient(180deg,rgba(2,5,12,0.99) 0%,rgba(0,0,0,1) 100%);
-  padding:0;
 }
-
-/* ── Top aurora bar ── */
-.aurora-top{
-  position:relative;height:3px;
-  background:linear-gradient(90deg,#00f5ff,#9d4edd,#ff2d78,#ffb700,#00ff9d,#00f5ff);
+/* Ambient glows */
+.g1{position:absolute;top:-100px;left:-40px;width:480px;height:480px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,245,255,0.05),transparent 68%);filter:blur(50px);pointer-events:none;z-index:0;}
+.g2{position:absolute;bottom:-80px;right:-20px;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(157,78,221,0.05),transparent 68%);filter:blur(50px);pointer-events:none;z-index:0;}
+.g3{position:absolute;top:35%;left:42%;width:500px;height:180px;transform:translateX(-50%);
+  background:radial-gradient(ellipse,rgba(255,45,120,0.025),transparent 70%);filter:blur(40px);pointer-events:none;z-index:0;}
+/* Grid */
+.grid{position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(0,245,255,0.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,245,255,0.022) 1px,transparent 1px);
+  background-size:55px 55px;}
+/* Scan */
+.scan{position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,245,255,0.18),transparent);
+  animation:scan 6s ease-in-out infinite;pointer-events:none;z-index:1;}
+/* Aurora top */
+.at{height:3px;background:linear-gradient(90deg,#00f5ff,#9d4edd,#ff2d78,#ffb700,#00ff9d,#00f5ff);
   background-size:300%;animation:aurora 3s linear infinite;
-  box-shadow:0 0 24px rgba(0,245,255,0.4),0 0 60px rgba(157,78,221,0.2);
-}
+  box-shadow:0 0 20px rgba(0,245,255,0.35),0 0 50px rgba(157,78,221,0.15);}
 
-/* ── Ambient glows ── */
-.g1{position:absolute;top:-120px;left:-60px;width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,245,255,0.055),transparent 65%);filter:blur(50px);pointer-events:none;}
-.g2{position:absolute;bottom:-100px;right:-40px;width:450px;height:450px;border-radius:50%;
-  background:radial-gradient(circle,rgba(157,78,221,0.055),transparent 65%);filter:blur(50px);pointer-events:none;}
-.g3{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:600px;height:200px;
-  background:radial-gradient(ellipse,rgba(255,45,120,0.025),transparent 70%);filter:blur(40px);pointer-events:none;}
+/* ── STATS ROW ── */
+.stats{display:flex;border-bottom:1px solid rgba(255,255,255,0.05);position:relative;z-index:2;}
+.si{flex:1;padding:22px 16px 20px;text-align:center;
+  border-right:1px solid rgba(255,255,255,0.055);position:relative;overflow:hidden;
+  transition:background 0.3s;}
+.si:last-child{border-right:none;}
+.si:hover{background:rgba(255,255,255,0.018);}
+.si::after{content:"";position:absolute;bottom:0;left:10%;right:10%;height:1px;
+  opacity:0;transition:opacity 0.3s;background:var(--c,#00f5ff);
+  box-shadow:0 0 8px var(--c,#00f5ff);}
+.si:hover::after{opacity:0.6;}
+.sn{font-family:Orbitron,monospace;font-size:1.75rem;font-weight:900;line-height:1;
+  margin-bottom:5px;text-shadow:0 0 20px var(--c,#00f5ff);}
+.sl{font-size:6.5px;letter-spacing:4px;color:rgba(200,214,232,0.3);font-family:Orbitron,monospace;}
+.sb{height:2px;border-radius:1px;margin-top:10px;animation:pb 1.8s ease both;--w:100%;}
 
-/* ── Scan line effect ── */
-.scan{position:absolute;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(0,245,255,0.15),transparent);
-  animation:scanLine 5s ease-in-out infinite;pointer-events:none;z-index:0;}
-
-/* ── Grid overlay ── */
-.grid-bg{position:absolute;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);
-  background-size:60px 60px;}
-
-/* ── Hero quote band ── */
-.quote-band{
-  padding:52px 8vw 44px;
-  text-align:center;position:relative;z-index:2;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-}
-.quote-text{
-  font-family:Orbitron,monospace;font-size:clamp(1.1rem,2.5vw,1.8rem);
-  font-weight:900;letter-spacing:3px;line-height:1.3;
-  background:linear-gradient(135deg,#a8f4ff 0%,#00f5ff 25%,#fff 50%,#bf5fff 70%,#ff2d78 100%);
-  background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:shimmer 6s ease infinite;
-}
-.quote-sub{
-  margin-top:12px;font-size:11px;letter-spacing:5px;
-  color:rgba(200,214,232,0.35);font-family:Orbitron,monospace;
-}
-
-/* ── Stats band ── */
-.stats-band{
-  display:flex;justify-content:center;align-items:stretch;
-  gap:0;border-bottom:1px solid rgba(255,255,255,0.05);
-  position:relative;z-index:2;
-}
-.stat-item{
-  flex:1;padding:28px 20px;text-align:center;
-  border-right:1px solid rgba(255,255,255,0.06);
-  position:relative;overflow:hidden;
-  transition:background 0.3s;
-}
-.stat-item:last-child{border-right:none;}
-.stat-item:hover{background:rgba(255,255,255,0.02);}
-.stat-num{
-  font-family:Orbitron,monospace;font-size:1.9rem;font-weight:900;
-  line-height:1;margin-bottom:6px;
-}
-.stat-lbl{font-size:7px;letter-spacing:4px;color:rgba(200,214,232,0.35);font-family:Orbitron,monospace;}
-.stat-bar{height:2px;border-radius:1px;margin-top:10px;animation:progressBar 1.8s ease both;}
-
-/* ── Main body ── */
-.body-grid{
-  display:grid;grid-template-columns:1.3fr 1px 1fr 1px 1fr;
-  gap:0;padding:48px 8vw 52px;
-  position:relative;z-index:2;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-}
-.col-div{background:linear-gradient(180deg,transparent,rgba(255,255,255,0.1),transparent);}
-
-/* Shared col styles */
-.col{padding:0 36px;}
+/* ── MAIN 3-COL ── */
+.mg{display:grid;grid-template-columns:1.2fr 1px 1.1fr 1px 1fr;
+  padding:40px 6vw 36px;gap:0;position:relative;z-index:2;
+  border-bottom:1px solid rgba(255,255,255,0.05);}
+.cdiv{background:linear-gradient(180deg,transparent,rgba(255,255,255,0.09),transparent);}
+.col{padding:0 32px;}
 .col:first-child{padding-left:0;}
 .col:last-child{padding-right:0;}
-.col-lbl{font-size:7px;letter-spacing:6px;color:rgba(255,255,255,0.4);
-  font-family:Orbitron,monospace;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
-.col-lbl::before{content:'';width:16px;height:1px;background:currentColor;opacity:0.5;}
+.clbl{font-size:6.5px;letter-spacing:6px;color:rgba(255,255,255,0.35);
+  font-family:Orbitron,monospace;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;}
+.clbl::before{content:"";width:14px;height:1px;background:currentColor;opacity:0.45;}
 
-/* Identity col */
-.name{
-  font-family:Orbitron,monospace;font-size:2rem;font-weight:900;
-  letter-spacing:2px;line-height:1;margin-bottom:8px;
+/* Identity */
+.nm{font-family:Orbitron,monospace;font-size:1.85rem;font-weight:900;
+  letter-spacing:1.5px;line-height:1;margin-bottom:7px;
   background:linear-gradient(90deg,#00f5ff 0%,#9d4edd 45%,#ff2d78 90%);
   background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:shimmer 5s ease infinite,glitch 8s ease-in-out infinite;
-}
-.sub-name{font-size:8.5px;color:rgba(200,214,232,0.55);letter-spacing:3px;margin-bottom:20px;font-family:Orbitron,monospace;}
-.badges{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:28px;}
-.badge{padding:4px 13px;border-radius:20px;font-size:7px;letter-spacing:2px;font-family:Orbitron,monospace;
-  transition:all 0.25s;}
-.b1{color:rgba(0,245,255,0.9);border:1px solid rgba(0,245,255,0.4);background:rgba(0,245,255,0.08);}
-.b1:hover{background:rgba(0,245,255,0.15);box-shadow:0 0 12px rgba(0,245,255,0.3);}
-.b2{color:rgba(157,78,221,0.9);border:1px solid rgba(157,78,221,0.4);background:rgba(157,78,221,0.08);}
-.b2:hover{background:rgba(157,78,221,0.15);box-shadow:0 0 12px rgba(157,78,221,0.3);}
-.b3{color:rgba(255,183,0,0.9);border:1px solid rgba(255,183,0,0.4);background:rgba(255,183,0,0.08);}
-.b3:hover{background:rgba(255,183,0,0.15);box-shadow:0 0 12px rgba(255,183,0,0.3);}
+  animation:shimmer 5s ease infinite,glitch 9s ease-in-out infinite;}
+.snm{font-size:7.5px;color:rgba(200,214,232,0.45);letter-spacing:3px;
+  margin-bottom:18px;font-family:Orbitron,monospace;}
+.bdgs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px;}
+.bdg{padding:4px 12px;border-radius:20px;font-size:6.5px;letter-spacing:2px;
+  font-family:Orbitron,monospace;transition:all 0.22s;cursor:default;}
+.d1{color:rgba(0,245,255,0.9);border:1px solid rgba(0,245,255,0.35);background:rgba(0,245,255,0.07);}
+.d1:hover{background:rgba(0,245,255,0.14);box-shadow:0 0 10px rgba(0,245,255,0.25);}
+.d2{color:rgba(157,78,221,0.9);border:1px solid rgba(157,78,221,0.35);background:rgba(157,78,221,0.07);}
+.d2:hover{background:rgba(157,78,221,0.14);box-shadow:0 0 10px rgba(157,78,221,0.25);}
+.d3{color:rgba(255,183,0,0.9);border:1px solid rgba(255,183,0,0.35);background:rgba(255,183,0,0.07);}
+.d3:hover{background:rgba(255,183,0,0.14);box-shadow:0 0 10px rgba(255,183,0,0.25);}
+/* Status */
+.stl{font-size:6.5px;letter-spacing:4px;color:rgba(255,255,255,0.3);
+  font-family:Orbitron,monospace;margin-bottom:10px;}
+.bi{margin-bottom:9px;}
+.br{display:flex;justify-content:space-between;margin-bottom:3px;}
+.br span{font-size:7px;font-family:"JetBrains Mono",monospace;}
+.bt{height:2.5px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;}
+.bf{height:100%;border-radius:2px;animation:pb 1.6s cubic-bezier(0.23,1,0.32,1) both;}
 
-/* Status bars */
-.status-lbl{font-size:7px;letter-spacing:4px;color:rgba(255,255,255,0.35);
-  font-family:Orbitron,monospace;margin-bottom:12px;}
-.bar-item{margin-bottom:10px;}
-.bar-row{display:flex;justify-content:space-between;margin-bottom:4px;}
-.bar-row span{font-size:7.5px;font-family:'JetBrains Mono',monospace;}
-.bar-track{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;position:relative;}
-.bar-fill{height:100%;border-radius:2px;animation:progressBar 1.6s cubic-bezier(0.23,1,0.32,1) both;}
-.bar-glow{position:absolute;top:-2px;right:0;width:6px;height:7px;border-radius:50%;filter:blur(3px);}
+/* Facts + tech */
+.fc{padding:14px 16px;border-radius:12px;margin-bottom:11px;
+  border:1px solid rgba(255,255,255,0.07);
+  background:linear-gradient(135deg,rgba(255,255,255,0.028),rgba(255,255,255,0.008));
+  position:relative;overflow:hidden;transition:border-color 0.28s,box-shadow 0.28s;}
+.fc:hover{box-shadow:0 0 18px rgba(0,245,255,0.06);}
+.fc::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--fc,rgba(0,245,255,0.2)),transparent);}
+.fi{font-size:14px;margin-bottom:6px;}
+.ft{font-size:9px;color:rgba(200,214,232,0.72);line-height:1.7;}
+.fh{font-weight:700;}
+/* Tech grid */
+.tg{display:flex;gap:5px;flex-wrap:wrap;}
+.tc{padding:4px 10px;border-radius:6px;font-size:7px;
+  font-family:"JetBrains Mono",monospace;transition:all 0.18s;cursor:default;}
+.tc:hover{transform:translateY(-2px);filter:brightness(1.3);}
+.t1{color:rgba(255,183,0,0.9);border:1px solid rgba(255,183,0,0.28);background:rgba(255,183,0,0.06);}
+.t2{color:rgba(255,45,120,0.9);border:1px solid rgba(255,45,120,0.28);background:rgba(255,45,120,0.06);}
+.t3{color:rgba(0,245,255,0.9);border:1px solid rgba(0,245,255,0.28);background:rgba(0,245,255,0.06);}
+.t4{color:rgba(157,78,221,0.9);border:1px solid rgba(157,78,221,0.28);background:rgba(157,78,221,0.06);}
+.t5{color:rgba(0,255,157,0.9);border:1px solid rgba(0,255,157,0.28);background:rgba(0,255,157,0.06);}
+.t6{color:rgba(255,183,0,0.9);border:1px solid rgba(255,183,0,0.28);background:rgba(255,183,0,0.06);}
 
-/* Facts col */
-.fact-card{
-  padding:18px 20px;border-radius:14px;margin-bottom:14px;
-  border:1px solid rgba(255,255,255,0.08);
-  background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
-  position:relative;overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s;
-}
-.fact-card:hover{border-color:rgba(0,245,255,0.2);box-shadow:0 0 20px rgba(0,245,255,0.07);}
-.fact-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(0,245,255,0.2),transparent);}
-.fact-icon{font-size:16px;margin-bottom:8px;}
-.fact-text{font-size:9.5px;color:rgba(200,214,232,0.75);line-height:1.75;}
-.fact-hl{font-weight:700;}
-.tech-grid{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
-.tech{padding:4px 11px;border-radius:6px;font-size:7px;font-family:'JetBrains Mono',monospace;
-  transition:all 0.2s;}
-.t1{color:rgba(255,183,0,0.9);border:1px solid rgba(255,183,0,0.3);background:rgba(255,183,0,0.07);}
-.t2{color:rgba(255,45,120,0.9);border:1px solid rgba(255,45,120,0.3);background:rgba(255,45,120,0.07);}
-.t3{color:rgba(0,245,255,0.9);border:1px solid rgba(0,245,255,0.3);background:rgba(0,245,255,0.07);}
-.t4{color:rgba(157,78,221,0.9);border:1px solid rgba(157,78,221,0.3);background:rgba(157,78,221,0.07);}
-.t5{color:rgba(0,255,157,0.9);border:1px solid rgba(0,255,157,0.3);background:rgba(0,255,157,0.07);}
-.tech:hover{transform:translateY(-2px);filter:brightness(1.3);}
-
-/* Connect col */
-.social-card{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 18px;border-radius:14px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.09);
-  text-decoration:none;
-  transition:all 0.28s ease;
-  cursor:pointer;margin-bottom:12px;
-  position:relative;overflow:hidden;
-}
-.social-card::after{content:'';position:absolute;inset:0;opacity:0;
+/* Social */
+.sc{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:12px;
+  background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.08);
+  text-decoration:none;transition:all 0.25s;cursor:pointer;margin-bottom:10px;
+  position:relative;overflow:hidden;}
+.sc::after{content:"";position:absolute;inset:0;opacity:0;
   background:linear-gradient(135deg,rgba(255,255,255,0.04),transparent);
-  transition:opacity 0.3s;}
-.social-card:hover::after{opacity:1;}
-.social-card.gh:hover{border-color:rgba(0,245,255,0.4);box-shadow:0 8px 28px rgba(0,245,255,0.12),inset 0 1px 0 rgba(0,245,255,0.1);}
-.social-card.li:hover{border-color:rgba(157,78,221,0.4);box-shadow:0 8px 28px rgba(157,78,221,0.12),inset 0 1px 0 rgba(157,78,221,0.1);}
-.social-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;
-  justify-content:center;flex-shrink:0;border:1px solid;position:relative;}
-.gh .social-icon{background:rgba(0,245,255,0.07);border-color:rgba(0,245,255,0.2);}
-.li .social-icon{background:rgba(157,78,221,0.07);border-color:rgba(157,78,221,0.2);}
-.s-meta{flex:1;}
-.s-label{font-size:7px;letter-spacing:3px;color:rgba(200,214,232,0.45);
-  font-family:Orbitron,monospace;margin-bottom:3px;}
-.s-url{font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;}
-.gh-url{color:rgba(0,245,255,0.9);}
-.li-url{color:rgba(157,78,221,0.9);}
-.s-arrow{color:rgba(255,255,255,0.2);font-size:16px;transition:transform 0.2s,color 0.2s;}
-.social-card:hover .s-arrow{transform:translateX(3px);color:rgba(255,255,255,0.5);}
+  transition:opacity 0.25s;}
+.sc:hover::after{opacity:1;}
+.sc.gh:hover{border-color:rgba(0,245,255,0.38);box-shadow:0 6px 24px rgba(0,245,255,0.1),inset 0 1px 0 rgba(0,245,255,0.08);}
+.sc.li:hover{border-color:rgba(157,78,221,0.38);box-shadow:0 6px 24px rgba(157,78,221,0.1),inset 0 1px 0 rgba(157,78,221,0.08);}
+.si2{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;border:1px solid;}
+.gh .si2{background:rgba(0,245,255,0.07);border-color:rgba(0,245,255,0.2);}
+.li .si2{background:rgba(157,78,221,0.07);border-color:rgba(157,78,221,0.2);}
+.sm{flex:1;}
+.slbl{font-size:6.5px;letter-spacing:3px;color:rgba(200,214,232,0.4);
+  font-family:Orbitron,monospace;margin-bottom:2px;}
+.su{font-size:9.5px;font-weight:600;font-family:"JetBrains Mono",monospace;}
+.ghu{color:rgba(0,245,255,0.9);}
+.liu{color:rgba(157,78,221,0.9);}
+.sa{color:rgba(255,255,255,0.18);font-size:15px;transition:transform 0.2s,color 0.2s;}
+.sc:hover .sa{transform:translateX(3px);color:rgba(255,255,255,0.45);}
+/* Availability */
+.av{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:10px;
+  background:rgba(0,255,157,0.04);border:1px solid rgba(0,255,157,0.18);margin-bottom:14px;}
+.avd{width:6px;height:6px;border-radius:50%;background:#00ff9d;
+  box-shadow:0 0 6px #00ff9d;animation:orbPulse 2s infinite;flex-shrink:0;}
+.avt{font-size:7px;color:rgba(0,255,157,0.75);letter-spacing:2.5px;font-family:Orbitron,monospace;}
+/* Radar */
+.radar-wrap{text-align:center;margin-top:6px;}
+.radar-lbl{font-size:6px;letter-spacing:3px;color:rgba(0,245,255,0.2);
+  font-family:Orbitron,monospace;margin-top:4px;}
+.rsweep{transform-origin:55px 55px;animation:rotate 4s linear infinite;}
 
-/* Availability badge */
-.avail{display:flex;align-items:center;gap:10px;padding:12px 16px;
-  border-radius:10px;background:rgba(0,255,157,0.05);
-  border:1px solid rgba(0,255,157,0.2);margin-top:4px;}
-.avail-dot{width:7px;height:7px;border-radius:50%;background:#00ff9d;
-  box-shadow:0 0 8px #00ff9d;animation:orbPulse 2s infinite;flex-shrink:0;}
-.avail-text{font-size:8px;color:rgba(0,255,157,0.8);letter-spacing:2px;font-family:Orbitron,monospace;}
+/* Quote band */
+.qb{text-align:center;padding:28px 6vw 26px;position:relative;z-index:2;
+  border-bottom:1px solid rgba(255,255,255,0.04);}
+.qt{font-family:Orbitron,monospace;font-size:clamp(0.9rem,1.8vw,1.35rem);
+  font-weight:900;letter-spacing:2px;line-height:1.4;
+  background:linear-gradient(135deg,#a8f4ff 0%,#00f5ff 25%,#fff 50%,#bf5fff 70%,#ff2d78 100%);
+  background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shimmer 6s ease infinite;}
+.qs{margin-top:8px;font-size:7px;letter-spacing:5px;
+  color:rgba(200,214,232,0.28);font-family:Orbitron,monospace;}
 
-/* Bottom copyright bar */
-.copy-bar{
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-  padding:18px 8vw;position:relative;z-index:2;
-}
-.copy-left{font-size:8px;color:rgba(200,214,232,0.3);letter-spacing:1.5px;font-family:'JetBrains Mono',monospace;}
-.copy-right{display:flex;align-items:center;gap:6px;}
-.copy-dot{width:4px;height:4px;border-radius:50%;}
-.copy-version{font-size:7.5px;color:rgba(200,214,232,0.25);letter-spacing:2px;font-family:Orbitron,monospace;}
+/* Copyright */
+.cb{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  padding:14px 6vw;position:relative;z-index:2;}
+.cl{font-size:7.5px;color:rgba(200,214,232,0.25);letter-spacing:1px;
+  font-family:"JetBrains Mono",monospace;}
+.cr{display:flex;align-items:center;gap:5px;}
+.cdot{width:4px;height:4px;border-radius:50%;}
+.cver{font-size:7px;color:rgba(200,214,232,0.2);letter-spacing:2px;
+  font-family:Orbitron,monospace;margin-left:5px;}
 </style>
 
 <div class="fw">
-  <div class="aurora-top"></div>
+  <div class="at"></div>
   <div class="g1"></div><div class="g2"></div><div class="g3"></div>
-  <div class="grid-bg"></div>
+  <div class="grid"></div>
   <div class="scan"></div>
 
-  <!-- ── QUOTE BAND ── -->
-  <div class="quote-band">
-    <div class="quote-text">"Probability is the language<br>the universe speaks in."</div>
-    <div class="quote-sub">MASTER THE MATHEMATICS · UNDERSTAND THE UNCERTAINTY</div>
-  </div>
-
-  <!-- ── STATS BAND ── -->
-  <div class="stats-band">
-    <div class="stat-item">
-      <div class="stat-num" style="color:#00f5ff;text-shadow:0 0 20px rgba(0,245,255,0.5);">10</div>
-      <div class="stat-lbl">DISTRIBUTIONS</div>
-      <div class="stat-bar" style="background:linear-gradient(90deg,#00f5ff,#9d4edd);--w:100%;"></div>
+  <!-- STATS -->
+  <div class="stats">
+    <div class="si" style="--c:#00f5ff">
+      <div class="sn" style="color:#00f5ff">10</div>
+      <div class="sl">DISTRIBUTIONS</div>
+      <div class="sb" style="background:linear-gradient(90deg,#00f5ff,#9d4edd);"></div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:#9d4edd;text-shadow:0 0 20px rgba(157,78,221,0.5);">4</div>
-      <div class="stat-lbl">STAT TOOLS</div>
-      <div class="stat-bar" style="background:linear-gradient(90deg,#9d4edd,#ff2d78);--w:100%;animation-delay:0.15s;"></div>
+    <div class="si" style="--c:#9d4edd">
+      <div class="sn" style="color:#9d4edd">4</div>
+      <div class="sl">STAT TOOLS</div>
+      <div class="sb" style="background:linear-gradient(90deg,#9d4edd,#ff2d78);animation-delay:.15s;"></div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:#ff2d78;text-shadow:0 0 20px rgba(255,45,120,0.5);">12</div>
-      <div class="stat-lbl">QUIZ QUESTIONS</div>
-      <div class="stat-bar" style="background:linear-gradient(90deg,#ff2d78,#ffb700);--w:100%;animation-delay:0.3s;"></div>
+    <div class="si" style="--c:#ff2d78">
+      <div class="sn" style="color:#ff2d78">12</div>
+      <div class="sl">QUIZ QUESTIONS</div>
+      <div class="sb" style="background:linear-gradient(90deg,#ff2d78,#ffb700);animation-delay:.3s;"></div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:#ffb700;text-shadow:0 0 20px rgba(255,183,0,0.5);">∞</div>
-      <div class="stat-lbl">SIMULATIONS</div>
-      <div class="stat-bar" style="background:linear-gradient(90deg,#ffb700,#00ff9d);--w:100%;animation-delay:0.45s;"></div>
+    <div class="si" style="--c:#ffb700">
+      <div class="sn" style="color:#ffb700">&#8734;</div>
+      <div class="sl">SIMULATIONS</div>
+      <div class="sb" style="background:linear-gradient(90deg,#ffb700,#00ff9d);animation-delay:.45s;"></div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:#00ff9d;text-shadow:0 0 20px rgba(0,255,157,0.5);">98%</div>
-      <div class="stat-lbl">ENGINE UPTIME</div>
-      <div class="stat-bar" style="background:linear-gradient(90deg,#00ff9d,#00f5ff);--w:98%;animation-delay:0.6s;"></div>
+    <div class="si" style="--c:#00ff9d">
+      <div class="sn" style="color:#00ff9d">98%</div>
+      <div class="sl">ENGINE UPTIME</div>
+      <div class="sb" style="background:linear-gradient(90deg,#00ff9d,#00f5ff);--w:98%;animation-delay:.6s;"></div>
     </div>
   </div>
 
-  <!-- ── MAIN BODY ── -->
-  <div class="body-grid">
+  <!-- MAIN 3-COL -->
+  <div class="mg">
 
-    <!-- LEFT: Identity -->
-    <div class="col" style="padding-left:0;">
-      <div class="col-lbl">PROJECT BY</div>
-      <div class="name">DESHAN GAUTAM</div>
-      <div class="sub-name">FIRST YEAR &middot; IIT MADRAS &middot; BS DATA SCIENCE</div>
-      <div class="badges">
-        <span class="badge b1">FIRST YEAR</span>
-        <span class="badge b2">IIT MADRAS</span>
-        <span class="badge b3">BS DATA SCIENCE</span>
+    <!-- LEFT: Identity + Status -->
+    <div class="col" style="padding-left:0">
+      <div class="clbl">PROJECT BY</div>
+      <div class="nm">DESHAN GAUTAM</div>
+      <div class="snm">FIRST YEAR &middot; IIT MADRAS &middot; BS DATA SCIENCE</div>
+      <div class="bdgs">
+        <span class="bdg d1">FIRST YEAR</span>
+        <span class="bdg d2">IIT MADRAS</span>
+        <span class="bdg d3">BS DATA SCIENCE</span>
       </div>
-
-      <div class="status-lbl">SYSTEM STATUS</div>
-      <div class="bar-item">
-        <div class="bar-row">
-          <span style="color:rgba(0,245,255,0.7);">MONTE CARLO ENGINE</span>
-          <span style="color:rgba(0,245,255,0.7);">98%</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="--w:98%;background:linear-gradient(90deg,#00f5ff,#9d4edd);"></div>
-        </div>
+      <div class="stl">SYSTEM STATUS</div>
+      <div class="bi">
+        <div class="br"><span style="color:rgba(0,245,255,0.65)">MONTE CARLO ENGINE</span><span style="color:rgba(0,245,255,0.65)">98%</span></div>
+        <div class="bt"><div class="bf" style="--w:98%;background:linear-gradient(90deg,#00f5ff,#9d4edd)"></div></div>
       </div>
-      <div class="bar-item">
-        <div class="bar-row">
-          <span style="color:rgba(157,78,221,0.7);">DISTRIBUTION LIBRARY</span>
-          <span style="color:rgba(157,78,221,0.7);">100%</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="--w:100%;background:linear-gradient(90deg,#9d4edd,#ff2d78);animation-delay:0.2s;"></div>
-        </div>
+      <div class="bi">
+        <div class="br"><span style="color:rgba(157,78,221,0.65)">DISTRIBUTION LIBRARY</span><span style="color:rgba(157,78,221,0.65)">100%</span></div>
+        <div class="bt"><div class="bf" style="--w:100%;background:linear-gradient(90deg,#9d4edd,#ff2d78);animation-delay:.2s"></div></div>
       </div>
-      <div class="bar-item">
-        <div class="bar-row">
-          <span style="color:rgba(0,255,157,0.7);">QUIZ ENGINE</span>
-          <span style="color:rgba(0,255,157,0.7);">100%</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="--w:100%;background:linear-gradient(90deg,#00ff9d,#00f5ff);animation-delay:0.35s;"></div>
-        </div>
+      <div class="bi">
+        <div class="br"><span style="color:rgba(0,255,157,0.65)">QUIZ ENGINE</span><span style="color:rgba(0,255,157,0.65)">100%</span></div>
+        <div class="bt"><div class="bf" style="--w:100%;background:linear-gradient(90deg,#00ff9d,#00f5ff);animation-delay:.35s"></div></div>
       </div>
-      <div class="bar-item">
-        <div class="bar-row">
-          <span style="color:rgba(255,183,0,0.7);">VISUALISATION LAYER</span>
-          <span style="color:rgba(255,183,0,0.7);">95%</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="--w:95%;background:linear-gradient(90deg,#ffb700,#ff2d78);animation-delay:0.5s;"></div>
-        </div>
+      <div class="bi">
+        <div class="br"><span style="color:rgba(255,183,0,0.65)">VISUALISATION LAYER</span><span style="color:rgba(255,183,0,0.65)">95%</span></div>
+        <div class="bt"><div class="bf" style="--w:95%;background:linear-gradient(90deg,#ffb700,#ff2d78);animation-delay:.5s"></div></div>
       </div>
     </div>
 
-    <div class="col-div"></div>
+    <div class="cdiv"></div>
 
-    <!-- CENTER: Facts + Stack -->
+    <!-- CENTER: Facts + Built With -->
     <div class="col">
-      <div class="col-lbl">DID YOU KNOW</div>
-
-      <div class="fact-card">
-        <div class="fact-icon">🎂</div>
-        <div class="fact-text">With just <span class="fact-hl" style="color:#00f5ff;">23 people</span> in a room, there is a <span class="fact-hl" style="color:#ff2d78;">50%+</span> chance two share a birthday — the <em>Birthday Paradox!</em></div>
+      <div class="clbl">DID YOU KNOW</div>
+      <div class="fc" style="--fc:rgba(0,245,255,0.25)">
+        <div class="fi">&#127922;</div>
+        <div class="ft">With just <span class="fh" style="color:#00f5ff">23 people</span> in a room, there is a <span class="fh" style="color:#ff2d78">50%+</span> chance two share a birthday &mdash; the <em>Birthday Paradox!</em></div>
       </div>
-
-      <div class="fact-card" style="border-color:rgba(157,78,221,0.15);">
-        <div class="fact-icon">🎲</div>
-        <div class="fact-text">The <span class="fact-hl" style="color:#9d4edd;">Central Limit Theorem</span> says any distribution's sample means converge to a <em>Normal distribution</em> — nature's favourite bell curve.</div>
+      <div class="fc" style="--fc:rgba(157,78,221,0.25)">
+        <div class="fi">&#128202;</div>
+        <div class="ft">The <span class="fh" style="color:#9d4edd">Central Limit Theorem</span> says sample means always converge to a <em>Normal distribution</em> &mdash; nature&apos;s favourite bell curve.</div>
       </div>
-
-      <div class="fact-card" style="border-color:rgba(255,183,0,0.15);">
-        <div class="fact-icon">⚡</div>
-        <div class="fact-text"><span class="fact-hl" style="color:#ffb700;">Bayes' Theorem</span> powers everything from spam filters to medical diagnosis — probability updated with evidence.</div>
+      <div class="fc" style="--fc:rgba(255,183,0,0.25)">
+        <div class="fi">&#9889;</div>
+        <div class="ft"><span class="fh" style="color:#ffb700">Bayes&apos; Theorem</span> powers spam filters, medical diagnosis &amp; AI &mdash; probability updated with evidence.</div>
       </div>
-
-      <div class="col-lbl" style="margin-top:22px;">BUILT WITH</div>
-      <div class="tech-grid">
-        <span class="tech t1">Python</span>
-        <span class="tech t2">Streamlit</span>
-        <span class="tech t3">NumPy</span>
-        <span class="tech t4">SciPy</span>
-        <span class="tech t5">Matplotlib</span>
-        <span class="tech t3" style="color:rgba(255,183,0,0.9);border-color:rgba(255,183,0,0.3);background:rgba(255,183,0,0.07);">Plotly</span>
+      <div class="clbl" style="margin-top:18px">BUILT WITH</div>
+      <div class="tg">
+        <span class="tc t1">Python</span>
+        <span class="tc t2">Streamlit</span>
+        <span class="tc t3">NumPy</span>
+        <span class="tc t4">SciPy</span>
+        <span class="tc t5">Matplotlib</span>
+        <span class="tc t6">Plotly</span>
       </div>
     </div>
 
-    <div class="col-div"></div>
+    <div class="cdiv"></div>
 
-    <!-- RIGHT: Connect -->
-    <div class="col" style="padding-right:0;">
-      <div class="col-lbl">CONNECT</div>
-
-      <a href="https://github.com/deshan-5" target="_blank" class="social-card gh float1">
-        <div class="social-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(0,245,255,0.85)">
+    <!-- RIGHT: Connect + Radar -->
+    <div class="col" style="padding-right:0">
+      <div class="clbl">CONNECT</div>
+      <div class="av">
+        <div class="avd"></div>
+        <div class="avt">OPEN TO COLLABORATE</div>
+      </div>
+      <a href="https://github.com/deshan-5" target="_blank" class="sc gh" style="animation:floatY 3.2s ease-in-out infinite">
+        <div class="si2">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="rgba(0,245,255,0.85)">
             <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
           </svg>
         </div>
-        <div class="s-meta">
-          <div class="s-label">GITHUB</div>
-          <div class="s-url gh-url">github.com/deshan-5</div>
+        <div class="sm">
+          <div class="slbl">GITHUB</div>
+          <div class="su ghu">github.com/deshan-5</div>
         </div>
-        <div class="s-arrow">›</div>
+        <div class="sa">&#8250;</div>
       </a>
-
-      <a href="https://www.linkedin.com/in/deshan-gautam-66574331" target="_blank" class="social-card li float2">
-        <div class="social-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(157,78,221,0.85)">
+      <a href="https://www.linkedin.com/in/deshan-gautam-66574331" target="_blank" class="sc li" style="animation:floatY2 3.2s 1.1s ease-in-out infinite">
+        <div class="si2">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="rgba(157,78,221,0.85)">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
           </svg>
         </div>
-        <div class="s-meta">
-          <div class="s-label">LINKEDIN</div>
-          <div class="s-url li-url">deshan-gautam</div>
+        <div class="sm">
+          <div class="slbl">LINKEDIN</div>
+          <div class="su liu">deshan-gautam</div>
         </div>
-        <div class="s-arrow">›</div>
+        <div class="sa">&#8250;</div>
       </a>
-
-      <!-- Availability status -->
-      <div class="avail">
-        <div class="avail-dot"></div>
-        <div class="avail-text">OPEN TO COLLABORATE</div>
-      </div>
-
-      <!-- Mini radar graphic -->
-      <div style="margin-top:22px;text-align:center;">
-        <svg width="110" height="110" viewBox="0 0 110 110" style="opacity:0.55;">
-          <circle cx="55" cy="55" r="48" fill="none" stroke="rgba(0,245,255,0.12)" stroke-width="1"/>
-          <circle cx="55" cy="55" r="34" fill="none" stroke="rgba(0,245,255,0.1)" stroke-width="1"/>
-          <circle cx="55" cy="55" r="20" fill="none" stroke="rgba(0,245,255,0.09)" stroke-width="1"/>
-          <line x1="7" y1="55" x2="103" y2="55" stroke="rgba(0,245,255,0.08)" stroke-width="1"/>
-          <line x1="55" y1="7" x2="55" y2="103" stroke="rgba(0,245,255,0.08)" stroke-width="1"/>
-          <polygon points="55,10 90,38 78,80 32,80 20,38" fill="rgba(0,245,255,0.04)" stroke="rgba(0,245,255,0.25)" stroke-width="1.5"/>
-          <circle cx="55" cy="10" r="3" fill="#00f5ff" opacity="0.7"/>
-          <circle cx="90" cy="38" r="3" fill="#9d4edd" opacity="0.7"/>
-          <circle cx="78" cy="80" r="3" fill="#ff2d78" opacity="0.7"/>
-          <circle cx="32" cy="80" r="3" fill="#ffb700" opacity="0.7"/>
-          <circle cx="20" cy="38" r="3" fill="#00ff9d" opacity="0.7"/>
-          <circle cx="55" cy="55" r="4" fill="rgba(0,245,255,0.6)"/>
-          <style>
-            .radar-sweep{transform-origin:55px 55px;animation:rotate 4s linear infinite;}
-          </style>
-          <line class="radar-sweep" x1="55" y1="55" x2="55" y2="7"
-            stroke="rgba(0,245,255,0.5)" stroke-width="1.5"
-            stroke-linecap="round" opacity="0.8"/>
-          <path class="radar-sweep" d="M55,55 L55,7 A48,48 0 0,1 89,72 Z"
-            fill="rgba(0,245,255,0.04)" stroke="none"/>
+      <div class="radar-wrap">
+        <svg width="100" height="100" viewBox="0 0 110 110" style="opacity:0.5;">
+          <circle cx="55" cy="55" r="48" fill="none" stroke="rgba(0,245,255,0.1)" stroke-width="1"/>
+          <circle cx="55" cy="55" r="34" fill="none" stroke="rgba(0,245,255,0.09)" stroke-width="1"/>
+          <circle cx="55" cy="55" r="20" fill="none" stroke="rgba(0,245,255,0.08)" stroke-width="1"/>
+          <line x1="7" y1="55" x2="103" y2="55" stroke="rgba(0,245,255,0.07)" stroke-width="1"/>
+          <line x1="55" y1="7" x2="55" y2="103" stroke="rgba(0,245,255,0.07)" stroke-width="1"/>
+          <polygon points="55,10 90,38 78,80 32,80 20,38" fill="rgba(0,245,255,0.04)" stroke="rgba(0,245,255,0.22)" stroke-width="1.5"/>
+          <circle cx="55" cy="10" r="2.5" fill="#00f5ff" opacity="0.7"/>
+          <circle cx="90" cy="38" r="2.5" fill="#9d4edd" opacity="0.7"/>
+          <circle cx="78" cy="80" r="2.5" fill="#ff2d78" opacity="0.7"/>
+          <circle cx="32" cy="80" r="2.5" fill="#ffb700" opacity="0.7"/>
+          <circle cx="20" cy="38" r="2.5" fill="#00ff9d" opacity="0.7"/>
+          <circle cx="55" cy="55" r="3.5" fill="rgba(0,245,255,0.5)"/>
+          <line class="rsweep" x1="55" y1="55" x2="55" y2="7" stroke="rgba(0,245,255,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+          <path class="rsweep" d="M55,55 L55,7 A48,48 0 0,1 89,72 Z" fill="rgba(0,245,255,0.035)" stroke="none"/>
         </svg>
-        <div style="font-size:7px;letter-spacing:3px;color:rgba(0,245,255,0.25);font-family:Orbitron,monospace;margin-top:2px;">SKILL RADAR</div>
+        <div class="radar-lbl">SKILL RADAR · ACTIVE</div>
       </div>
     </div>
 
-  </div><!-- end body-grid -->
+  </div>
 
-  <!-- ── COPYRIGHT BAR ── -->
-  <div class="copy-bar">
-    <div class="copy-left">&copy; 2025 Deshan Gautam &nbsp;&middot;&nbsp; Probability Lab &nbsp;&middot;&nbsp; All Rights Reserved</div>
-    <div class="copy-right">
-      <div class="copy-dot" style="background:#00f5ff;box-shadow:0 0 5px #00f5ff;"></div>
-      <div class="copy-dot" style="background:#9d4edd;box-shadow:0 0 5px #9d4edd;"></div>
-      <div class="copy-dot" style="background:#ff2d78;box-shadow:0 0 5px #ff2d78;"></div>
-      <span class="copy-version" style="margin-left:6px;">v2.0 · 2026</span>
+  <!-- QUOTE -->
+  <div class="qb">
+    <div class="qt">&ldquo;Probability is the language the universe speaks in.&rdquo;</div>
+    <div class="qs">MASTER THE MATHEMATICS &nbsp;&middot;&nbsp; UNDERSTAND THE UNCERTAINTY</div>
+  </div>
+
+  <!-- COPYRIGHT -->
+  <div class="cb">
+    <div class="cl">&copy; 2025 Deshan Gautam &nbsp;&middot;&nbsp; Probability Lab &nbsp;&middot;&nbsp; All Rights Reserved</div>
+    <div class="cr">
+      <div class="cdot" style="background:#00f5ff;box-shadow:0 0 4px #00f5ff"></div>
+      <div class="cdot" style="background:#9d4edd;box-shadow:0 0 4px #9d4edd"></div>
+      <div class="cdot" style="background:#ff2d78;box-shadow:0 0 4px #ff2d78"></div>
+      <span class="cver">v2.0 &middot; 2026</span>
     </div>
   </div>
 
 </div>
-""", height=780, scrolling=False)
+""", height=730, scrolling=False)
 
 
 
