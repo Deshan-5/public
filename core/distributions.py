@@ -1,7 +1,7 @@
 import numpy as np
 from scipy import stats
 
-# ── Discrete ──────────────────────────────────────────────────
+# ── Discrete 
 def simulate_binomial(n, p, size=5000):
     return np.random.binomial(n, p, size)
 
@@ -14,7 +14,7 @@ def simulate_poisson(lam, size=5000):
 def simulate_negative_binomial(r, p, size=5000):
     return np.random.negative_binomial(r, p, size)
 
-# ── Continuous ─────────────────────────────────────────────────
+# ── Continuous
 def simulate_normal(mu, sigma, size=5000):
     return np.random.normal(mu, sigma, size)
 
@@ -36,7 +36,7 @@ def simulate_chi_squared(df, size=5000):
 def simulate_t_distribution(df, size=5000):
     return np.random.standard_t(df, size)
 
-# ── Theory curves ──────────────────────────────────────────────
+# ── Theory curves 
 def binomial_pmf(n, p):
     k = np.arange(0, n + 1)
     return k, stats.binom.pmf(k, n, p)

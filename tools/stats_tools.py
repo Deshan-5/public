@@ -2,9 +2,9 @@ import numpy as np
 from scipy import stats
 import math
 
-# ══════════════════════════════════════════════════════════════════
+
 # HYPOTHESIS TESTING
-# ══════════════════════════════════════════════════════════════════
+
 
 def z_test_one_sample(sample_mean, pop_mean, pop_std, n, alternative="two-sided"):
     """One-sample Z-test."""
@@ -66,9 +66,9 @@ def get_critical_value(test_type, alpha, df=None, alternative="two-sided"):
         return stats.chi2.ppf(1 - alpha, df)
     return None
 
-# ══════════════════════════════════════════════════════════════════
+
 # CONFIDENCE INTERVALS
-# ══════════════════════════════════════════════════════════════════
+
 
 def ci_mean_known_sigma(sample_mean, pop_std, n, confidence=0.95):
     """CI for mean with known population std (Z-interval)."""
@@ -111,9 +111,9 @@ def ci_variance(data, confidence=0.95):
     return {"lower": df * s2 / chi2_upper, "upper": df * s2 / chi2_lower,
             "sample_variance": s2, "df": df, "method": "Chi-square CI"}
 
-# ══════════════════════════════════════════════════════════════════
+
 # BAYES THEOREM
-# ══════════════════════════════════════════════════════════════════
+
 
 def bayes_theorem(prior, likelihood_given_true, likelihood_given_false):
     """
@@ -155,9 +155,9 @@ def beta_binomial_update(alpha_prior, beta_prior, successes, failures):
             "prior_mean": prior_mean, "posterior_mean": post_mean,
             "successes": successes, "failures": failures}
 
-# ══════════════════════════════════════════════════════════════════
+
 # PERMUTATIONS & COMBINATIONS
-# ══════════════════════════════════════════════════════════════════
+
 
 def permutations(n, r):
     """nPr = n! / (n-r)!"""

@@ -20,7 +20,7 @@ st.set_page_config(
 if "page"     not in st.session_state: st.session_state.page     = "landing"
 if "lab_type" not in st.session_state: st.session_state.lab_type = "discrete"
 
-# ── handle ?go= tile clicks ──────────────────────────────────────────────────
+#  handles ?go= tile clicks 
 _qp = st.query_params
 if "go" in _qp:
     _dest = _qp["go"]
@@ -34,9 +34,9 @@ if "go" in _qp:
     elif _dest == "landing": st.session_state.page = "landing"
     st.rerun()
 
-# ═══════════════════════════════════════════════════════════════
-# ULTRA GLOBAL CSS + JS PARTICLE ENGINE
-# ═══════════════════════════════════════════════════════════════
+
+# global css + js particle engine 
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400;600;800&display=swap');
@@ -427,7 +427,7 @@ a[href="?go=cont"]:hover .portal-card {
 </style>
 """, unsafe_allow_html=True)
 
-# ── SPACE BG + CURSOR via self-contained hidden iframe ────────
+# SPACE BG + CURSOR via self-contained hidden iframe 
 st.markdown("""
 <iframe id="plab-fx-frame"
   srcdoc="<script>
@@ -490,9 +490,8 @@ st.markdown("""
 </iframe>
 """, unsafe_allow_html=True)
 
-# ═══════════════════════════════════════════════════════════════
 # MATPLOTLIB ULTRA THEME
-# ═══════════════════════════════════════════════════════════════
+
 plt.rcParams.update({
     "figure.facecolor":  "#060d18",
     "axes.facecolor":    "#020408",
@@ -517,9 +516,9 @@ PAGE_COLOR = {
     "combinatorics": "#9d4edd",
 }
 
-# ═══════════════════════════════════════════════════════════════
-# NAVBAR — ultra glass morphism
-# ═══════════════════════════════════════════════════════════════
+
+# navbar — glass morphism :)
+
 def navbar():
     page  = st.session_state.page
     color = PAGE_COLOR.get(page, "#00f5ff")
@@ -580,9 +579,9 @@ def navbar():
         unsafe_allow_html=True,
     )
 
-# ═══════════════════════════════════════════════════════════════
-# UI COMPONENTS — ultra-redesigned
-# ═══════════════════════════════════════════════════════════════
+
+# UI components
+
 def ticker(color="#00f5ff", items=None):
     if items is None:
         items = ["PROBABILITY LAB","MONTE CARLO","HYPOTHESIS TESTING",
@@ -687,9 +686,9 @@ def stat_row(items, color="#00f5ff"):
                 unsafe_allow_html=True,
             )
 
-# ═══════════════════════════════════════════════════════════════
+
 # CHARTS — ultra styled
-# ═══════════════════════════════════════════════════════════════
+
 def make_chart(samples, tx=None, ty=None, color="#00f5ff", title="",
                discrete=False, bars=True, curve=True,
                extra_lines=None, figsize=(8, 3.2)):
@@ -723,9 +722,9 @@ def make_chart(samples, tx=None, ty=None, color="#00f5ff", title="",
     fig.tight_layout(pad=1.2)
     return fig
 
-# ═══════════════════════════════════════════════════════════════
+
 # DISTRIBUTION CONFIG — unchanged logic, just referenced
-# ═══════════════════════════════════════════════════════════════
+
 DISTS = {
     "discrete": [
         {"id": "binomial",  "label": "Binomial",  "color": "#00f5ff",
@@ -808,14 +807,14 @@ DISTS = {
     ],
 }
 
-# ═══════════════════════════════════════════════════════════════
-# PAGE: LANDING — full cinematic redesign
-# ═══════════════════════════════════════════════════════════════
+
+# PAGE: landing — full cinematic inspired design
+
 def page_landing():
     navbar()
     ticker()
 
-    # ── HERO ─────────────────────────────────────────────────
+    #  Hero section with animated background and title
     st.markdown("""
     <div class="plab-page" style="text-align:center;padding:60px 24px 40px;position:relative;z-index:10;">
 
@@ -881,7 +880,7 @@ def page_landing():
     </div>
     """, unsafe_allow_html=True)
 
-    # ── DISTRIBUTION PORTALS ──────────────────────────────────
+    # ── Distribution selection cards ──
     st.markdown("""
     <div style="text-align:center;padding:0 0 20px;position:relative;z-index:10;">
       <div style="font-size:7px;letter-spacing:6px;color:rgba(255,255,255,0.12);
@@ -987,7 +986,7 @@ def page_landing():
             </div></a>
             """, unsafe_allow_html=True)
 
-    # ── TOOL TILES ────────────────────────────────────────────
+    # ── Statistical tools section.
     st.markdown("""
     <div style="text-align:center;padding:32px 0 20px;position:relative;z-index:10;">
       <div style="font-size:8px;letter-spacing:7px;color:rgba(255,255,255,0.35);
@@ -1033,7 +1032,7 @@ def page_landing():
     ticker("#9d4edd", ["Z-TEST","T-TEST","CHI-SQUARE","P-VALUE","ALPHA","BAYES FACTOR",
                        "POSTERIOR","nCr","nPr","CONFIDENCE INTERVAL","TYPE I ERROR","POWER"])
 
-    # ── PROJECT CREDIT ────────────────────────────────────────
+    # ─ Project Credit 
     st.markdown(
         '<div style="position:relative;z-index:10;padding:56px 24px 64px;">'
         '<div style="max-width:1100px;margin:0 auto;padding:52px 64px;border-radius:24px;'
@@ -1112,9 +1111,9 @@ def page_landing():
     st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
 
-# ═══════════════════════════════════════════════════════════════
-# PAGE: DISTRIBUTION LAB
-# ═══════════════════════════════════════════════════════════════
+
+# PAGE: Distribution Lab.
+
 def page_lab():
     navbar()
     lt    = st.session_state.lab_type
@@ -1123,7 +1122,7 @@ def page_lab():
 
     _, mid, _ = st.columns([1, 20, 1])
     with mid:
-        # ── elegant back button ──────────────────────────────────
+        # eleganto back button 
         st.markdown(
             '<a href="?go=landing" style="text-decoration:none;display:inline-flex;align-items:center;'
             'gap:8px;padding:7px 16px;border-radius:8px;margin:16px 0 4px;cursor:pointer;'
@@ -1210,9 +1209,9 @@ def page_lab():
                             unsafe_allow_html=True)
 
 
-# ═══════════════════════════════════════════════════════════════
+
 # PAGE: HYPOTHESIS TESTING
-# ═══════════════════════════════════════════════════════════════
+
 def page_tests():
     navbar()
     _, mid, _ = st.columns([1, 20, 1])
@@ -1396,9 +1395,9 @@ def page_tests():
                 fig.tight_layout(pad=1.2); st.pyplot(fig, use_container_width=True); plt.close(fig)
 
 
-# ═══════════════════════════════════════════════════════════════
+
 # PAGE: CONFIDENCE INTERVALS
-# ═══════════════════════════════════════════════════════════════
+
 def page_ci():
     navbar()
     _, mid, _ = st.columns([1, 20, 1])
@@ -1572,9 +1571,9 @@ def page_ci():
                     fig_c.tight_layout(pad=1.2); st.pyplot(fig_c, use_container_width=True); plt.close(fig_c)
 
 
-# ═══════════════════════════════════════════════════════════════
+
 # PAGE: BAYES
-# ═══════════════════════════════════════════════════════════════
+
 def page_bayes():
     navbar()
     _, mid, _ = st.columns([1, 20, 1])
@@ -1705,9 +1704,9 @@ def page_bayes():
                 fig.tight_layout(pad=1.2); st.pyplot(fig, use_container_width=True); plt.close(fig)
 
 
-# ═══════════════════════════════════════════════════════════════
+
 # PAGE: COMBINATORICS
-# ═══════════════════════════════════════════════════════════════
+
 def page_combinatorics():
     navbar()
     _, mid, _ = st.columns([1, 20, 1])
@@ -1846,9 +1845,9 @@ def page_combinatorics():
                             )
 
 
-# ═══════════════════════════════════════════════════════════════
+
 # ROUTER
-# ═══════════════════════════════════════════════════════════════
+
 {
     "landing":       page_landing,
     "lab":           page_lab,
