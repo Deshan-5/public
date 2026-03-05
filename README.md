@@ -3,7 +3,7 @@
 
 ---
 
-## What's New in v3.0
+## What's New in v2.0
 
 - **Landing page** with animated moving-gradient navbar
 - **Discrete Lab** — Binomial, Geometric, Poisson (with animate button)
@@ -19,7 +19,7 @@
 
 ```
 probability_lab/
-├── app_s.py        ← main app (run this)
+├── app_sr.py        ← main app (run this)
 ├── requirements.txt
 ├── core/
 │   ├── __init__.py
@@ -42,17 +42,13 @@ source venv/bin/activate       # macOS/Linux
 venv\Scripts\activate          # Windows
 
 pip install -r requirements.txt
-streamlit run streamlit_app.py
+streamlit run app_sr.py
 ```
 
 ---
 
 ## Features
 
-### 🌐 Landing Page
-- Animated top navbar with moving gradient highlight bar
-- Portal cards for Discrete / Continuous labs
-- Tool cards for all statistical tools
 
 ### ⚀ Discrete Distributions
 | Distribution | Parameters | Formula |
