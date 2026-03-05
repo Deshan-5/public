@@ -1,4 +1,4 @@
-# 🎲 Probability Lab v3
+#  Probability Lab v2
 ### Monte Carlo Simulation Engine · Statistical Toolkit
 
 ---
