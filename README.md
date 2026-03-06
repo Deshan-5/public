@@ -95,4 +95,4 @@ streamlit run app_sr.py
 
 ---
 
-Built with Python · Streamlit · NumPy · SciPy · Matplotlib
+Built with Python · Streamlit · NumPy · SciPy · Matplotlib · plotly
